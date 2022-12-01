@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as actions from '../api';
+import * as actions from '../apiTools';
 
 const api = store => next => async action => {
   if (action.type !== actions.apiCallBegan.type) {

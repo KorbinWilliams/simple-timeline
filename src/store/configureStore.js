@@ -1,4 +1,4 @@
-import { getDefaultMiddleware, configureStore } from 'react-redux';
+import { getDefaultMiddleware, configureStore } from '@reduxjs/toolkit';
 import rootReducer from './combineReducer';
 import api from './middleware/api';
 

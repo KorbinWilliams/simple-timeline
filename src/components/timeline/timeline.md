@@ -38,7 +38,6 @@
         - `setToggle`: a function that can be used to open/close the modal
         - `toggle`: the toggle for whether the modal is open/closed (don't directly edit, use setToggle)
 
-
 ### Basic Example Chart
 ```
 <TimelineChart

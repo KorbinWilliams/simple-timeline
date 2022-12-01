@@ -1,6 +1,6 @@
 import React, {cloneElement, useState} from 'react';
 import cleanHtml from './htmlSanitizer'
-import { Grid, Modal } from '@material-ui/core'
+import { Grid, Modal } from '@mui/material'
 import _ from 'lodash';
 
 // TODO // add prop type validation
@@ -621,7 +621,7 @@ const getChartHeight = (items) =>  {
 
 
 // SECTION TimelineChart
-export const TimelineChart = (props) => {
+const TimelineChart = (props) => {
   // NOTE // using local state here so that the on-hover re-renders what is shown
   const [hoverHtml, setHoverHtml] = useState('')
   const [hoverKey, setHoverKey] = useState('')
@@ -641,6 +641,7 @@ export const TimelineChart = (props) => {
   // checkProps(props)
   // NOTE // configure any props that have defaults
   configureDefaultProps(props)
+  console.log(props)
   // NOTE // formatItems contains the bulk of the logic
   let results = formatItems(props)
   let formattedItems = results[0]
@@ -682,4 +683,6 @@ export const TimelineChart = (props) => {
     </Grid>
   )
 }
+
+export default TimelineChart
 // !SECTION

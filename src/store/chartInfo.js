@@ -1,5 +1,5 @@
-import { createSlice} from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
+import { createSlice } from '@reduxjs/toolkit';
+import { apiCallBegan } from './apiTools';
 import _ from 'lodash';
 
 const slice = createSlice({
@@ -19,60 +19,15 @@ export const { } = slice.actions;
 
 export default slice.reducer;
 
-export const loadUsers = () => (dispatch, getState) => {
-  const url = `users/all`
+// export const loadUsers = () => (dispatch, getState) => {
+//   const url = `users/all`
 
-  return dispatch(
-    apiCallBegan({
-      url,
-      method: 'get',
-      onSuccess: getUsersSuccess.type,
-      onError: getUsersError.type,
-    })
-  )
-}
-
-export const addUser = (user) => (dispatch, getState) => {
-  const url = `users`
-
-  return dispatch(
-    apiCallBegan({
-      url,
-      method: 'post',
-      data: user,
-      onStart: adminReqStart.type,
-      onSuccess: adminReqSuccess.type,
-      onError: adminReqError.type,
-    })
-  )
-}
-
-export const editUser = (user) => (dispatch, getState) => {
-  const url = `users/edit`
-
-  return dispatch(
-    apiCallBegan({
-      url,
-      method: 'post',
-      data: user,
-      onStart: adminReqStart.type,
-      onSuccess: adminReqSuccess.type,
-      onError: adminReqError.type,
-    })
-  )
-}
-
-export const deleteUser = (user) => (dispatch, getState) => {
-  const url = `users/delete`
-
-  return dispatch(
-    apiCallBegan({
-      url,
-      method: 'post',
-      data: user,
-      onStart: adminReqStart.type,
-      onSuccess: adminReqSuccess.type,
-      onError: adminReqError.type,
-    })
-  )
-}
+//   return dispatch(
+//     apiCallBegan({
+//       url,
+//       method: 'get',
+//       onSuccess: getUsersSuccess.type,
+//       onError: getUsersError.type,
+//     })
+//   )
+// }
