@@ -275,7 +275,8 @@ const configureItemOptions = (props, item) => {
     // !SECTION
 
     return output
-  } catch (error) {
+  }
+  catch (error) {
     console.error('configureItemOptions Err: ' + error)
   }
 }
