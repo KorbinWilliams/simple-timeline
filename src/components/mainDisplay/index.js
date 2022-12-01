@@ -89,7 +89,6 @@ const MainDisplay = (props) => {
 
   return (
     <Grid container item xs={12} ref={ref}>
-      <div id="chartWrapper" style={{ overflowX: 'scroll', overflowY: 'visible', width: (ref.current.offsetWidth + 'px')}}>
       <TimelineChart
         items={formatAppointments(testItems)}
         // Nov 29 2022 00:00:00
@@ -99,8 +98,8 @@ const MainDisplay = (props) => {
         showCurrentTime={true}
         dateItemsLoc={['appointmentStart', 'appointmentEnd']}
         vAxisProp={'name'}
-        chartHeight={'100%'}
-        chartWidth={'100%'}
+        chartHeight={'600px'}
+        chartWidth={1500}
         itemOptions={
           {
             defaultColor: '#9fc5e9',
@@ -120,7 +119,6 @@ const MainDisplay = (props) => {
         //   }
         // }
       />
-      </div>
     </Grid>
   )
 }
