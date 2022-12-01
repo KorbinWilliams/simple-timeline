@@ -1,7 +1,14 @@
 import _ from 'lodash';
+import { getDate, getNested } from "./generalFunctions"
+
+// NOTE // configures any default props the user didn't use that the timeline needs
+export const configureDefaultProps = (props) => {
+  props.labelOptions.label = props?.labelOptions?.label ? props.labelOptions.label : ''
+  props.itemOptions.defaultColor = props?.itemOptions?.defaultColor ? props.itemOptions.defaultColor : 'rgb(159, 197, 233)'
+}
 
 // NOTE // assigning a row to each item in a group
-const sortGroupItems = (props, group) => {
+export const sortGroupItems = (props, group) => {
   // NOTE // Make a copy of the group
   let sortedGroup = _.cloneDeep(group)
   // NOTE // sort the items in the group by start time
@@ -38,7 +45,7 @@ const sortGroupItems = (props, group) => {
 }
 
 // NOTE // gets hAxisItems, and filters out items that aren't within the current date-selection
-const formatHAxisDates = (props, formattedItems) => {
+export const formatHAxisDates = (props, formattedItems) => {
   let groups = formattedItems
   // NOTE // dateItemsLoc is an array with the strings of the location for the horizontail-axis using dot formatting (i.e. ['start', 'end'] or ['prop1.prop2', 'prop3.prop4'] or ['test.contents.start', 'test.contents.end'])
   let dateItemsLoc = props.dateItemsLoc
@@ -93,7 +100,7 @@ const formatHAxisDates = (props, formattedItems) => {
   }
 }
 
-const configureItemOptions = (props, item) => {
+export const configureItemOptions = (props, item) => {
   const labelOptions = props.labelOptions
   const itemOptions = props.itemOptions
   let output = {label: '', color: itemOptions.defaultColor || '', hover: '', itemStyle: ''}
@@ -147,7 +154,7 @@ const configureItemOptions = (props, item) => {
 }
 
 // NOTE // gets the position based on time for each item
-const configureItemPositions = (props, items, hourWidth) => {
+export const configureItemPositions = (props, items, hourWidth) => {
   // NOTE // timeline technically starts 30 mins prior to timelineStart
   let timelineStart = props.timelineStart - .5
 
@@ -169,7 +176,7 @@ const configureItemPositions = (props, items, hourWidth) => {
 }
 
 // NOTE // get each groups rowHeight based on the total number of overlaps
-const getRowHeights = (props, formattedItems) => {
+export const getRowHeights = (props, formattedItems) => {
   let groups = _.cloneDeep(formattedItems)
   let totalRows = 0
 
@@ -230,7 +237,7 @@ const getRowHeights = (props, formattedItems) => {
 }
 
 // NOTE // grouping items as/by vAxisProp for the vertical axis
-const formatVAxisItems = (props) => {
+export const formatVAxisItems = (props) => {
   const items = props.items
   // NOTE // if no vAxisProp is provided, try using the key instead
   const vAxisProp = props.vAxisProp ? props.vAxisProp : 'key'
@@ -256,14 +263,14 @@ const formatVAxisItems = (props) => {
 }
 
 // NOTE // the bulk of the logic, returns an array [formattedItems, baseRowHeight]
-const formatItems = (props) => {
+export const formatItems = (props) => {
   let formatVAxisResults = formatVAxisItems(props)
   let formatHAxisDatesResults = formatHAxisDates(props, formatVAxisResults)
   return getRowHeights(props, formatHAxisDatesResults)
 }
 
 // NOTE // adjust the height of the internal components if there are less than 4 rows
-const getChartHeight = (items) =>  {
+export const getChartHeight = (items) =>  {
   let totalRows = 0
 
   for (let i = 0; i < items.length; i++) {

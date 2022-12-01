@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 // NOTE // takes in an object, an array of strings (i.e. getNested({a: {b: '=)'}}, ['a', 'b'])), and a replacement prop (optional)
 // NOTE // replacement example: 'startDate' (base-level props only)
-const getNested = (obj, itemLoc, replacement) => {
+export const getNested = (obj, itemLoc, replacement) => {
   let curProp
   if (typeof itemLoc === 'string') {
     itemLoc = itemLoc.split('.')
@@ -29,7 +29,7 @@ const getNested = (obj, itemLoc, replacement) => {
   }
 }
 
-const isDate = (date) => {
+export const isDate = (date) => {
   if (typeof date === 'object') {
     if (!isNaN(new Date(date))) {
       return true
@@ -40,7 +40,7 @@ const isDate = (date) => {
 }
 
 // NOTE // returns false on a bad date, otherwise returns a date object
-const getDate = (date) => {
+export const getDate = (date) => {
   let output = new Date(date)
   // NOTE // if the item is already a date object return it
   if (isDate(date)) {

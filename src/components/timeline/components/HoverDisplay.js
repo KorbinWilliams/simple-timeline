@@ -1,4 +1,4 @@
-
+import cleanHtml from '../htmlSanitizer'
 
 const HoverDisplay = (props) => {
   let hover = props.hover

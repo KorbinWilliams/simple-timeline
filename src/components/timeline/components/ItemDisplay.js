@@ -1,4 +1,5 @@
-import { Grid, Modal } from '@mui/material'
+import { Grid } from '@mui/material'
+import HoverDisplay from "./HoverDisplay"
 
 const ItemDisplay = (props) => {
   let options = props.options
