@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Bob",
+    "appointmentStart": 1669732200000,
+    "appointmentEnd": 1669734000000,
+    "visitReason": "check-up"
+  },
+  {
+    "name": "Alena",
+    "appointmentStart": 1669727700000,
+    "appointmentEnd": 1669733100000,
+    "visitReason": "colonoscopy"
+  },
+  {
+    "name": "Joseph",
+    "appointmentStart": 1669761900000,
+    "appointmentEnd": 1669765500000,
+    "visitReason": "diabetes consultation"
+  },
+  {
+    "name": "Stephanie",
+    "appointmentStart": 1669748400000,
+    "appointmentEnd": 1669750920000,
+    "visitReason": "physical exam"
+  },
+  {
+    "name": "Ricardo",
+    "appointmentStart": 1669757400000,
+    "appointmentEnd": 1669761300000,
+    "visitReason": "ultrasound & MRI"
+  },
+  {
+    "name": "Jhon",
+    "appointmentStart": 1669742100000,
+    "appointmentEnd": 1669744800000,
+    "visitReason": "adhd follow-up"
+  }
+]
