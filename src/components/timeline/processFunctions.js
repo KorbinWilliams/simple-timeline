@@ -1,14 +1,51 @@
 import _ from 'lodash';
 import { getDate, getNested } from "./generalFunctions"
 
-// NOTE // configures any default props the user didn't use that the timeline needs
-export const configureDefaultProps = (props) => {
-  props.labelOptions.label = props?.labelOptions?.label ? props.labelOptions.label : ''
-  props.itemOptions.defaultColor = props?.itemOptions?.defaultColor ? props.itemOptions.defaultColor : 'rgb(159, 197, 233)'
+const configureChartRange = (items, dateItemsLoc, type) => {
+  let time
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (type === 'start') {
+      let itemStart = new Date(item[dateItemsLoc[0]]).getHours()
+      time = !time || itemStart < time ? itemStart : time
+    }
+    else {
+      let itemEnd = new Date(item[dateItemsLoc[1]]).getHours()
+      time = !time || itemEnd > time ? itemEnd : time
+    }
+  }
+
+  return time
+}
+
+// NOTE // configures defaults not specified by the user that are required
+export const configureDefaults = (props) => {
+  let propsWithDefaults = _.cloneDeep(props)
+  if (!propsWithDefaults?.labelOptions && !propsWithDefaults?.labelOptions?.label) {
+    propsWithDefaults.labelOptions = {}
+    // NOTE // sets the property used for labels as blank if not defined
+    propsWithDefaults.labelOptions.label = ''
+  }
+  if (!propsWithDefaults.itemOptions) {
+    propsWithDefaults.itemOptions = {}
+  }
+  if (!propsWithDefaults?.itemOptions?.defaultColor) {
+    // NOTE // default item color is light blue
+    propsWithDefaults.itemOptions.defaultColor = '#9fc5e9'
+  }
+  // NOTE // get chart start and end if not defined
+  if (!propsWithDefaults.timelineStart && propsWithDefaults.timelineStart !== 0) {
+    propsWithDefaults.timelineStart = configureChartRange(propsWithDefaults.items, propsWithDefaults.dateItemsLoc, 'start')
+  }
+  if (!propsWithDefaults.timelineEnd && propsWithDefaults.timelineEnd !== 0) {
+    propsWithDefaults.timelineEnd = configureChartRange(propsWithDefaults.items, propsWithDefaults.dateItemsLoc, 'end')
+  }
+  return propsWithDefaults
 }
 
 // NOTE // assigning a row to each item in a group
-export const sortGroupItems = (props, group) => {
+export const sortGroupItems = (group) => {
   // NOTE // Make a copy of the group
   let sortedGroup = _.cloneDeep(group)
   // NOTE // sort the items in the group by start time
@@ -230,7 +267,7 @@ export const getRowHeights = (props, formattedItems) => {
   for (let i = 0; i < groups.length; i++) {
     const group = groups[i];
     // NOTE // assign each item in a group to a row, then replace the group
-    groups[i] = sortGroupItems(props, group)
+    groups[i] = sortGroupItems(group)
   }
 
   return [groups, rowHeightBase]

@@ -1,13 +1,12 @@
 # Timeline Readme
 
 ## About
-  This component was made because google's timeline chart for React was a royal pain in the ass. It is a timeline chart that takes items, groups them based on a shared property, and displays items that match the current date.
+  This component was made because google's chart for React was a royal pain in the ass for making timelines. It is a timeline chart that takes items, groups them based on a shared property, and displays items that match the current date.
 
 ## Required Props
 
 - `items`: an array of items to be used in the timeline
-- `timelineDate`: a date object (or date in milliseconds) to use for the timeline. Used for the year, month, and day (will exclude items not matching the timelineDate)
-- `timelineStart` & `timelineEnd`: these are numbers to indicate the start and end of the timeline measured in hours (defaults to 0 and 24 respectively)
+- `timelineDate`: a date object (or date in milliseconds) to use for the timeline. Used for the year, month, and day (will exclude items not matching the day of timelineDate)
 - `dateItemsLoc`: an array with the strings of the location for the date items using dot formatting (i.e. ['item.end.time', 'item.start.time']). the first item in the array should be the start, and the second the end
 - `vAxisProp`: a string used to indicate the location of the prop (using dot notation) to use to group items (defaults to trying item.key if omitted)
 - `chartHeight`: the height of the chart (defaults to 100% of the allocated height. Will be smaller if there are less than 4 rows)
@@ -17,6 +16,7 @@
 ## Other Props
 
 - `legendOptions`: MIGHT MAKE
+- `timelineStart` & `timelineEnd`: these are numbers to indicate the start and end of the timeline measured in hours (defaults to 0 and 24 respectively)
 - `showCurTime`: a boolean that controls whether to show the current time on the timeline (default is false)
 - `labelOptions`: an object containing options for if and how the label should be displayed
     - `label`: a string that denotes the location of the label in the item
@@ -38,14 +38,19 @@
         - `setToggle`: a function that can be used to open/close the modal
         - `toggle`: the toggle for whether the modal is open/closed (don't directly edit, use setToggle)
 
+## Defaults
+Any of the listed props not specified by the user will have the stated default
+
+- `timelineStart` & `timelineEnd`: the hour of the earliest & latest items start and end
+- `itemOptions.defaultColor`: color #9fc5e9 (light blue)
+- `labelOptions.label`: if a label property is not specified, it will be left blank and not have a label
+
 ### Basic Example Chart
 ```
 <TimelineChart
-  items={tests}
+  items={testItems}
   timelineDate={1631733189520}
-  timelineStart={7}
-  timelineEnd={15}
-  dateItemsLoc={['test.start', 'test.end']}
+  dateItemsLoc={['start', 'end']}
   vAxisProp={'name'}
   chartHeight={'50%'}
   chartWidth={'80%'}

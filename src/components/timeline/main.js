@@ -5,7 +5,7 @@ import HAxis from "./components/HAxis";
 import VAxis from "./components/VAxis";
 import Rows from "./components/Rows";
 import ItemModal from "./components/ItemModal";
-import { configureDefaultProps, formatItems, getChartHeight } from "./processFunctions"
+import { configureDefaults, formatItems, getChartHeight } from "./processFunctions"
 
 // SECTION TimelineChart
 const TimelineChart = (props) => {
@@ -27,19 +27,19 @@ const TimelineChart = (props) => {
   // NOTE // ensure all required props exist
   // checkProps(props)
   // NOTE // configure any props that have defaults
-  configureDefaultProps(props)
+  let updatedProps = configureDefaults(props)
   console.log(props)
   // NOTE // formatItems contains the bulk of the logic
-  let results = formatItems(props)
+  let results = formatItems(updatedProps)
   let formattedItems = results[0]
   let baseRowHeight = results[1]
   // NOTE // adjust the height of the internal components if there are less than 4 rows
   let adjustedChartHeight = getChartHeight(formattedItems)
-  const itemModal = props.itemModal && props.itemModal.component ? props.itemModal.component : ''
-  const modalProps = props.itemModal && props.itemModal.modalProps ? props.itemModal.modalProps : ''
+  const itemModal = updatedProps.itemModal && updatedProps.itemModal.component ? updatedProps.itemModal.component : ''
+  const modalProps = updatedProps.itemModal && updatedProps.itemModal.modalProps ? updatedProps.itemModal.modalProps : ''
 
-  const chartHeight = props.chartHeight ? props.chartHeight : '100%'
-  const chartWidth = props.chartWidth ? props.chartWidth : '100%'
+  const chartHeight = updatedProps.chartHeight ? updatedProps.chartHeight : '100%'
+  const chartWidth = updatedProps.chartWidth ? updatedProps.chartWidth : '100%'
 
   return (
     <Grid container id='main-chart' style={{height: chartHeight, width: (chartWidth + 'px')}}>
@@ -54,7 +54,7 @@ const TimelineChart = (props) => {
         </Grid>
         <Grid item style={{width: '95%'}}>
           <Rows
-            props={props}
+            props={updatedProps}
             formattedItems={_.cloneDeep(formattedItems)}
             baseRowHeight={baseRowHeight}
             hover={{html: hoverHtml, setHover: setHtmlString, hoverKey: hoverKey, setHoverKey: setItemKey}}
@@ -63,7 +63,7 @@ const TimelineChart = (props) => {
         </Grid>
         <Grid item style={{height: '10%', borderTop: '1px solid black', width: '5%'}}></Grid>
         <Grid item style={{height: '10%', width: '95%'}}>
-          <HAxis props={props} />
+          <HAxis props={updatedProps} />
         </Grid>
       </Grid>
       {/* {props.legendItems ? <Legend legendItems={legendItems}/> : <div></div>} */}

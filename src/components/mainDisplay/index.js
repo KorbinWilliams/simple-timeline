@@ -18,30 +18,8 @@ const MainDisplay = (props) => {
           styles: [{fontWeight: 'bold'}]
         }
       ]
-      // {
-      //   text: [`${flight.Load}`,`${hasStandbyPax ? `STBY` : ''}`, `${hasStandbyPax ?  `(${hasStandbyPax.length})` : ''}`],
-      //   styles: [{}, {fontWeight: 'bold', marginLeft: '3px', marginRight: '3px', color: '#bb0000'}, {}]
-      // },
     }
     return aptsArr
-  }
-
-  const getChartRange = (aptsArr, type) => {
-    let time
-
-    for (let i = 0; i < aptsArr.length; i++) {
-      const apt = aptsArr[i];
-      if (type === 'start') {
-        let aptStart = new Date(apt.appointmentStart).getHours()
-        time = !time || aptStart < time ? aptStart : time
-      }
-      else {
-        let aptEnd = new Date(apt.appointmentEnd).getHours()
-        time = !time || aptEnd > time ? aptEnd : time
-      }
-    }
-
-    return time
   }
 
   // TODO // simplify starting chart (add more default options, enable more types for css options)
@@ -54,8 +32,8 @@ const MainDisplay = (props) => {
         items={formatAppointments(testItems)}
         // Nov 29 2022 00:00:00
         timelineDate={1669705200000}
-        timelineStart={getChartRange(testItems, 'start')}
-        timelineEnd={getChartRange(testItems, 'end')}
+        // timelineStart={6}
+        // timelineEnd={14}
         showCurrentTime={true}
         dateItemsLoc={['appointmentStart', 'appointmentEnd']}
         vAxisProp={'name'}
