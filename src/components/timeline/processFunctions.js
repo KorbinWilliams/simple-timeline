@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getDate, getNested } from "./generalFunctions"
+import { getDate, getNested, getPercentOf } from "./generalFunctions"
 
 const configureChartRange = (items, dateItemsLoc, type) => {
   let time
@@ -19,29 +19,55 @@ const configureChartRange = (items, dateItemsLoc, type) => {
   return time
 }
 
-// NOTE // configures defaults not specified by the user that are required
-export const configureDefaults = (props) => {
-  let propsWithDefaults = _.cloneDeep(props)
-  if (!propsWithDefaults?.labelOptions && !propsWithDefaults?.labelOptions?.label) {
-    propsWithDefaults.labelOptions = {}
+// NOTE // configures default props not specified by the user and returns the adjusted props
+export const configureDefaults = (props, widthAvailable, heightAvailable) => {
+  let propsClone = _.cloneDeep(props)
+  if (!propsClone?.labelOptions && !propsClone?.labelOptions?.label) {
+    propsClone.labelOptions = {}
     // NOTE // sets the property used for labels as blank if not defined
-    propsWithDefaults.labelOptions.label = ''
+    propsClone.labelOptions.label = ''
   }
-  if (!propsWithDefaults.itemOptions) {
-    propsWithDefaults.itemOptions = {}
+  if (!propsClone.itemOptions) {
+    propsClone.itemOptions = {}
   }
-  if (!propsWithDefaults?.itemOptions?.defaultColor) {
+  if (!propsClone?.itemOptions?.defaultColor) {
     // NOTE // default item color is light blue
-    propsWithDefaults.itemOptions.defaultColor = '#9fc5e9'
+    propsClone.itemOptions.defaultColor = '#9fc5e9'
   }
   // NOTE // get chart start and end if not defined
-  if (!propsWithDefaults.timelineStart && propsWithDefaults.timelineStart !== 0) {
-    propsWithDefaults.timelineStart = configureChartRange(propsWithDefaults.items, propsWithDefaults.dateItemsLoc, 'start')
+  if (!propsClone.timelineStart && propsClone.timelineStart !== 0) {
+    propsClone.timelineStart = configureChartRange(propsClone.items, propsClone.dateItemsLoc, 'start')
   }
-  if (!propsWithDefaults.timelineEnd && propsWithDefaults.timelineEnd !== 0) {
-    propsWithDefaults.timelineEnd = configureChartRange(propsWithDefaults.items, propsWithDefaults.dateItemsLoc, 'end')
+  if (!propsClone.timelineEnd && propsClone.timelineEnd !== 0) {
+    propsClone.timelineEnd = configureChartRange(propsClone.items, propsClone.dateItemsLoc, 'end')
   }
-  return propsWithDefaults
+  // NOTE // adjust chartWidth and chartHeight to use pixels
+  if (propsClone.chartWidth && typeof propsClone.chartWidth === 'string') {
+    let chartWidth = propsClone.chartWidth
+    if (chartWidth.includes('%')) {
+      chartWidth = getPercentOf(chartWidth, widthAvailable)
+    }
+    else if (chartWidth.includes('px')) {
+      chartWidth = chartWidth.slice(0, chartWidth.indexOf('px'))
+    }
+    propsClone.chartWidth = chartWidth
+  }
+  else {
+    propsClone.chartWidth = widthAvailable
+  }
+  if (propsClone.chartHeight && typeof propsClone.chartHeight === 'string') {
+    let chartHeight = propsClone.chartHeight
+    if (chartHeight.includes('%')) {
+      chartHeight = getPercentOf(chartHeight, heightAvailable)
+    }
+    propsClone.chartHeight = chartHeight
+  }
+  // NOTE // adjust chartHeight
+  else {
+    propsClone.chartHeight = heightAvailable + 'px'
+  }
+
+  return propsClone
 }
 
 // NOTE // assigning a row to each item in a group
@@ -88,7 +114,7 @@ export const formatHAxisDates = (props, formattedItems) => {
   let dateItemsLoc = props.dateItemsLoc
   // NOTE // timelineDate is a required date object, will start at 00:00 unless specified with timelineStart/timelineEnd
   let timelineDate = getDate(props.timelineDate)
-  // NOTE // a number for the hours, so 0 for 00:00, and 24 for 12:00 p.m.
+  // NOTE // a number for the hours, so 0 for 00:00, and 24 for 23:59
   let timelineStart = props.timelineStart ? (props.timelineStart - .5) : 0
   let timelineEnd = props.timelineEnd ? (props.timelineEnd + .5) : 24
 

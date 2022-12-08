@@ -64,3 +64,17 @@ export const getDate = (date) => {
     return output
   }
 }
+
+// NOTE // transforms a percent string and gets percentage of number
+export const getPercentOf = (percentStr, num) => {
+  let percentLoc = percentStr.indexOf('%')
+  let percentNum = Number(percentStr.slice(0, percentLoc))
+  if (percentNum >= 100) {
+    percentNum = 1
+  }
+  else {
+    percentNum = Number('.' + percentStr.slice(0, percentLoc))
+  }
+
+  return percentNum * num
+}

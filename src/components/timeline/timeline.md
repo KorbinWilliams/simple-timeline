@@ -7,14 +7,13 @@
 
 - `items`: an array of items to be used in the timeline
 - `timelineDate`: a date object (or date in milliseconds) to use for the timeline. Used for the year, month, and day (will exclude items not matching the day of timelineDate)
-- `dateItemsLoc`: an array with the strings of the location for the date items using dot formatting (i.e. ['item.end.time', 'item.start.time']). the first item in the array should be the start, and the second the end
+- `dateItemsLoc`: an array with the strings of the location for the date items using dot formatting (i.e. ['item.end.time', 'item.start.time'] or ['start', 'end']). the first item in the array should be the start, and the second the end
 - `vAxisProp`: a string used to indicate the location of the prop (using dot notation) to use to group items (defaults to trying item.key if omitted)
-- `chartHeight`: the height of the chart (defaults to 100% of the allocated height. Will be smaller if there are less than 4 rows)
-- `chartWidth`: the width of the chart (defaults to 100%)
-- `chartWidthRef`: the number of pixels that the chart uses (use Reacts useRef)
 
 ## Other Props
 
+- `chartHeight`: the height of the chart (can use px or percentage, defaults to 100%)
+- `chartWidth`: the width of the chart (can use px or percentage, defaults to 100%)
 - `legendOptions`: MIGHT MAKE
 - `timelineStart` & `timelineEnd`: these are numbers to indicate the start and end of the timeline measured in hours (defaults to 0 and 24 respectively)
 - `showCurTime`: a boolean that controls whether to show the current time on the timeline (default is false)
@@ -38,10 +37,10 @@
         - `setToggle`: a function that can be used to open/close the modal
         - `toggle`: the toggle for whether the modal is open/closed (don't directly edit, use setToggle)
 
-## Defaults
+## Other Defaults
 Any of the listed props not specified by the user will have the stated default
 
-- `timelineStart` & `timelineEnd`: the hour of the earliest & latest items start and end
+- `timelineStart` & `timelineEnd`: the hour of the earliest & latest items start and end time
 - `itemOptions.defaultColor`: color #9fc5e9 (light blue)
 - `labelOptions.label`: if a label property is not specified, it will be left blank and not have a label
 
