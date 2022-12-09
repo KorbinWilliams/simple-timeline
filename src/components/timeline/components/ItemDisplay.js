@@ -30,7 +30,8 @@ const ItemDisplay = (props) => {
             top: `15%`,
             left: `${item.offset}px`,
             position: 'absolute',
-            overflow: 'visible'
+            overflow: 'visible',
+            zIndex: 3
           }}
         >
           {options.label}
@@ -46,7 +47,8 @@ const ItemDisplay = (props) => {
         top: `20%`,
         left: `${item.offset}px`,
         position: 'absolute',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        zIndex: 3
       }
       let itemStyle = options.itemStyle ? options.itemStyle : {}
       let combinedStyles = {
