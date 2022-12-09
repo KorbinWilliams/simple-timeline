@@ -2,6 +2,15 @@ import { Grid } from '@mui/material'
 import { configureItemPositions, configureItemOptions } from "../processFunctions"
 import ItemDisplay from "./ItemDisplay"
 
+const getHoursArr = (timelineStart, timelineEnd) => {
+  let hoursArr = []
+  // 6 16
+  for (let i = timelineStart; i < (timelineEnd + 1); i++) {
+    hoursArr.push(i)
+  }
+  return hoursArr
+}
+
 // NOTE // renders rows for each group
 // TODO // set min-height for rows
 const Rows = (props) => {
@@ -16,6 +25,7 @@ const Rows = (props) => {
   let timelineStart = originalProps.timelineStart ? originalProps.timelineStart : 0
   let timelineEnd = originalProps.timelineEnd ? originalProps.timelineEnd : 24
   const hours = (timelineEnd - timelineStart)
+  let hoursArr = getHoursArr(timelineStart, timelineEnd)
   // NOTE // the amount of space in a row an hour takes up
   let hourWidth = Math.round(rowWidth/(hours + 2))
   // NOTE // boolean that toggles display of current time
@@ -23,7 +33,7 @@ const Rows = (props) => {
   // NOTE // current time measured in hours (i.e. 5:12 p.m. curTime is 17.2)
   let curTime = new Date().getHours() + (new Date().getMinutes()/60)
   // NOTE // position of current time
-  let overlayPos = (hourWidth * (curTime - (timelineStart - .5)))
+  let curTimeMarkerPosition = (hourWidth * (curTime - (timelineStart - .5)))
 
   // NOTE // create an object for each row
   for (let i = 0; i < formattedItems.length; i++) {
@@ -48,8 +58,16 @@ const Rows = (props) => {
     <Grid container item xs={12} id='rows-container' style={{height: `100%`, position: 'relative'}}>
       {
         showCurTime ?
-        <div id='time-marker-line' style={{position: 'absolute', left: `${overlayPos}px`, height: '100%', width: '1px', backgroundColor: 'black', zIndex: -1}}></div> :
+        <div id='current-time-marker-line' style={{position: 'absolute', left: `${curTimeMarkerPosition}px`, height: '100%', width: '1px', backgroundColor: '#c1c1c1', zIndex: -1}}></div> :
         <div></div>
+      }
+      {
+        hoursArr.map((hour, index) => {
+          let timeMarkerPosition = (hourWidth * (hour - (timelineStart - .5)))
+          return (
+            <div id={`time-marker-line-${hour}`} style={{position: 'absolute', left: `${timeMarkerPosition}px`, height: '100%', width: '1px', backgroundColor: '#c1c1c1', zIndex: 2}}></div>
+          )
+        })
       }
       {
         formattedItems.map((group, index) => {
