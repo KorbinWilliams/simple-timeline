@@ -15,7 +15,7 @@ const HAxis = (props) => {
   }
 
   return (
-    <Grid container id='hAxis' style={{width: '100%', borderTop: '1px solid black'}}>
+    <Grid container id='hAxis' style={{width: '100%', borderTop: '1px solid #c1c1c1'}}>
       {hoursArr.map((hour, index) => (
         // NOTE // hour mark width is essentially the width of allocated grid divided by the amount of hours in the chart (the '+ 2' is to include the first and last hour)
         <div key={(index + 'hourMark')} index={index} style={{width: `${Math.round((rowWidth/(hours + 2)))}px`, margin: '0px'}}>

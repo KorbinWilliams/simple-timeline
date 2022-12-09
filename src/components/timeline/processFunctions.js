@@ -288,6 +288,7 @@ export const getRowHeights = (props, formattedItems) => {
 
   // NOTE // rowHeightBase is the percentage of space a single row (not a group) will have for display
   let rowHeightBase = 100/totalRows
+  console.log(rowHeightBase)
 
   // NOTE // loop over groups to create rows, and assign items
   for (let i = 0; i < groups.length; i++) {

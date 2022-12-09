@@ -5,11 +5,11 @@ const VAxis = (props)  => {
   let baseRowHeight = props.baseRowHeight
 
   return (
-    <div style={{height: '100%', borderRight: '1px solid black'}}>
+    <div style={{height: '100%', borderRight: '2px solid #c1c1c1'}}>
       {formattedItems.map((group, index) => (
-        <Grid container alignContent='center' justify='center' style={{width: '100%', height: `${group.overlaps * baseRowHeight}%`, borderTop: '1px solid black'}} key={group.groupName} index={index}>
+        <Grid container alignContent='center' justify='center' style={{width: '100%', height: `${group.overlaps * baseRowHeight}%`, borderTop: '2px solid #c1c1c1'}} key={group.groupName} index={index}>
           {/* TODO // different tag or style for ipad */}
-          <div style={{fontSize: '100%', fontWeight: 'bold'}}>{group.groupName}</div>
+          <div style={{width: '100%', fontSize: '100%', fontWeight: 'bold', display: 'flex', justifyContent: 'center'}}>{group.groupName}</div>
         </Grid>
       ))}
     </div>

@@ -19,7 +19,7 @@ const HoverDisplay = (props) => {
       zIndex: 2
     }}
     >
-      <div style={{border: '1px solid black', backgroundColor: `white`, minHeight: '100%'}} dangerouslySetInnerHTML={{__html:cleanHtml(hover.html)}} />
+      <div style={{border: '2px solid black', backgroundColor: `white`, minHeight: '100%'}} dangerouslySetInnerHTML={{__html:cleanHtml(hover.html)}} />
     </div>
   )
 }

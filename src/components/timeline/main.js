@@ -33,6 +33,7 @@ const TimelineChart = (props) => {
       setHoverKey(itemKey)
     }
   }
+
   // NOTE // configure any required props that have defaults
   let updatedProps = configureDefaults(props, widthAvailable, heightAvailable)
   // NOTE // formatItems contains the bulk of the logic
@@ -48,7 +49,7 @@ const TimelineChart = (props) => {
   const chartWidth = updatedProps.chartWidth
 
   return (
-    <div id="chartWrapper" ref={ref}>
+    <div id="chartWrapper" ref={ref} style={{border: '2px solid #c1c1c1'}}>
       <Grid container id='main-chart' style={{height: chartHeight, width: (chartWidth + 'px')}}>
       {/* <Grid container id='main-chart' style={{height: chartHeight, width: chartWidth}}> */}
         {
@@ -69,7 +70,7 @@ const TimelineChart = (props) => {
               modal={{toggle: modalToggle, setToggle: toggleModal, setItem: setModalItem}}
             />
           </Grid>
-          <Grid item style={{height: '10%', borderTop: '1px solid black', width: '5%'}}></Grid>
+          <Grid item style={{height: '10%', borderTop: '2px solid #c1c1c1', width: '5%'}}></Grid>
           <Grid item style={{height: '10%', width: '95%'}}>
             <HAxis props={updatedProps} />
           </Grid>

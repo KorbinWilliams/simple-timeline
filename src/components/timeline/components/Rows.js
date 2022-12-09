@@ -9,6 +9,7 @@ const Rows = (props) => {
   let modal = props.modal
   // NOTE // the calculated height of each row
   const baseRowHeight = props.baseRowHeight
+  console.log('Rows brh: ', baseRowHeight)
   let formattedItems = props.formattedItems
   let originalProps = props.props
   let rowWidth = (originalProps.chartWidth / 12) * 11
@@ -29,6 +30,7 @@ const Rows = (props) => {
     const group = formattedItems[i];
     let rowAmount = group.overlaps
 
+    // NOTE // loop over each row, grab items for the row, and configure their positions
     for (let j = 0; j < rowAmount; j++) {
       let rowId = (group.groupName + 'Row' + j)
       let rowItems = group.items.filter(item => item.row === j)
@@ -42,7 +44,6 @@ const Rows = (props) => {
     }
   }
 
-  // TODO // better adaptivity for item-size, font-size, and row size
   return (
     <Grid container item xs={12} id='rows-container' style={{height: `100%`, position: 'relative'}}>
       {
@@ -55,19 +56,22 @@ const Rows = (props) => {
           let rows = group.rows
           if (group && group.rows) {
             return (
-              <Grid container style={{height: `${Math.round(baseRowHeight * rows.length * .9)}%`}} id={group.groupName} index={index}>
-                {rows.map((row, index) => {
-                  return (
-                    <Grid container item xs={12} id={row.rowId} key={row.rowId} style={{height: `${100/rows.length}%`, position: 'relative'}} index={index}>
-                      {row.rowItems.map((item, index) => {
-                        let options = configureItemOptions(originalProps, item)
-                        return (
-                          <ItemDisplay key={item.key} index={index} options={options} item={item} hover={hover} modal={modal} />
-                        )
-                      })}
-                    </Grid>
-                  )
-                })}
+              // NOTE // height used to be {baseRowHeight * rows.length * .9} and I have no idea why the .9 was there
+              <Grid container style={{height: `${baseRowHeight * rows.length}%`, backgroundColor: (index % 2 == 0 ? 'white' : '#e6e6e6'), border: '1px solid #c1c1c1'}} id={group.groupName} index={index}>
+                {
+                  rows.map((row, index) => {
+                    return (
+                      <Grid container item xs={12} id={row.rowId} key={row.rowId} style={{height: `${100/rows.length}%`, position: 'relative'}} index={index}>
+                        {row.rowItems.map((item, index) => {
+                          let options = configureItemOptions(originalProps, item)
+                          return (
+                            <ItemDisplay key={item.key} index={index} options={options} item={item} hover={hover} modal={modal} />
+                          )
+                        })}
+                      </Grid>
+                    )
+                  })
+                }
               </Grid>
             )
           }
